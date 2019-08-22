@@ -38,15 +38,6 @@ node('master') {
                 // if terraform does not installed in system stage will install the terraform
                  stage('Installing Docker') {
                    sh """
-                   sudo yum remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-engine
-
                   sudo yum install -y yum-utils \
                   device-mapper-persistent-data \
                   lvm2
