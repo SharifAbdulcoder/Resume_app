@@ -3,7 +3,7 @@ node('master') {
   properties([parameters([booleanParam(defaultValue: false, description: 'terraform apply', name: 'terraform-apply'), booleanParam(defaultValue: false, description: 'terraform destroy', name: 'terraform-destroy')])])
 
     stage('Clone repo') {
-      git url: "https://github.com/SharifAbdulcoder/Containerized-Python_app.git"
+      git url: "https://github.com/SharifAbdulcoder/Resume_app.git"
     }
 
     stage('Check terraform') {
