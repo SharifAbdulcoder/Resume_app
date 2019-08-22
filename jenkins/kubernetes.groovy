@@ -39,6 +39,7 @@ node('master') {
                  stage('Installing Docker') {
                    sh """
                    sudo yum install docker -y
+                   systemctl start docker
                    """
                  }
               }
