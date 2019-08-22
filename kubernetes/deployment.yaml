@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: resume
+  name: resume
+  labels:
+    app: resume
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: resume
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+       maxUnavailable: 25%
+       maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: resume
+    spec:
+      containers:
+      - image: sharifabdulcoder/app:v2
+        name: resume
+        ports:
+        - containerPort: 8080
+          name: resume
+        volumeMounts:
+        - mountPath: /mnt/resume
+          name: resume-pvc
+      restartPolicy: Always
+      volumes:
+      - name: resume-pvc
+        persistentVolumeClaim:
+          claimName: resume-pvc
+      nodeSelector:
+        you.are: wrong
