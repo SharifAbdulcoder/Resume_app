@@ -1,4 +1,4 @@
-def http-server
+def httpserver
 node('master') {
   properties([parameters([booleanParam(defaultValue: false, description: 'terraform apply', name: 'terraform-apply'), booleanParam(defaultValue: false, description: 'terraform destroy', name: 'terraform-destroy')])])
 
@@ -24,15 +24,15 @@ node('master') {
            }
 
     stage('Build') {
-        http-server = docker.build("sharifabdulcoder/http-server")
+        httpserver = docker.build("sharifabdulcoder/httpserver")
       }
 
 
     stage('Push image') {
        // Push docker image to the Docker hub
         docker.withRegistry('', 'abdul_dockerhub') {
-            http-server.push("0.1")
-            http-server.push("latest")
+            httpserver.push("0.1")
+            httpserver.push("latest")
         }
       }
 
