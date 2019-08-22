@@ -17,7 +17,7 @@ node('master') {
                // if terraform does not installed in system stage will install the terraform
                 stage('Installing Terraform') {
                   sh """
-                  yum install terraform -y
+                  sudo yum install terraform -y
                   """
                 }
              }
