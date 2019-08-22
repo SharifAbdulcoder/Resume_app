@@ -17,7 +17,10 @@ node('master') {
                // if terraform does not installed in system stage will install the terraform
                 stage('Installing Terraform') {
                   sh """
-                  sudo yum install terraform -y
+                  sudo yum install wget unzip -y
+                  sudo wget https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
+                  sudo unzip terraform_0.12.6_linux_amd64.zip
+                  sudo mv terraform /bin/
                   """
                 }
              }
