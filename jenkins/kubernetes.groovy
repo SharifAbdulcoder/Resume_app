@@ -26,6 +26,24 @@ node('master') {
              }
            }
 
+
+    stage('Check docker') {
+        try {
+          // Trying to run terraform command
+          env.docker  = sh returnStdout: true, script: 'docker --version'
+          echo """
+          echo Docker is already installed version ${env.docker}
+          """
+          } catch(er) {
+                // if terraform does not installed in system stage will install the terraform
+                 stage('Installing Docker') {
+                   sh """
+                   sudo yum install docker -y
+                   """
+                 }
+              }
+            }
+
     stage('Build') {
         httpserver = docker.build("sharifabdulcoder/httpserver")
       }
