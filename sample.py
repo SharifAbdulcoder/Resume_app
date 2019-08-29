@@ -1,6 +1,5 @@
 import http.server
 import socketserver
-from BaseHTTPServer import BaseHTTPRequestHandler
 
 PORT = 8080
 
