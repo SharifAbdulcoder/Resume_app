@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "resume.fullname" . }}-mysql
+  labels:
+    app.kubernetes.io/name: {{ include "resume.name" . }}
+    helm.sh/chart: {{ include "resume.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "resume.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "resume.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.mysql.repository }}:{{ .Values.mysql.tag }}"
+          imagePullPolicy: {{ .Values.mysql.pullPolicy }}
+{{- if .Values.globalEnvs.enabled }}
+          env:
+{{ toYaml .Values.globalEnvs.environmentVeriables | indent 12 }}
+{{- end }}
+          ports:
+            - name: mysql-port
+              containerPort: {{ .Values.mysql.service.port }}
+              protocol: TCP
